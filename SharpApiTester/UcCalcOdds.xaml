@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="SharpApiTester.UcCalcOdds"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpApiTester"
+             mc:Ignorable="d" 
+             d:DesignHeight="820" d:DesignWidth="1024" Loaded="UserControl_Loaded">
+    <StackPanel>
+        <TextBlock Text="Calculate Odds" FontSize="18" FontWeight="Bold" Margin="10"/>
+        <StackPanel Orientation="Horizontal">
+            <ScrollViewer MaxHeight="730">
+            <StackPanel Orientation="Vertical"  Margin="10">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock Text="Calc Parameters: " FontSize="15" FontWeight="Bold" Margin="10" />
+                </GroupBox.Header>
+
+                <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Match Favorite is:" ToolTip="Which team is favorite on match (has smaller odd)? Home or Away?" Margin="20,5,0,5" Padding="2" Background="WhiteSmoke" />
+                            <StackPanel>
+                                <RadioButton x:Name="rbtnHomeFav"  GroupName="RadioFav"  Margin="5,2"  >
+                                    <RadioButton.Content>
+                                        <TextBlock Text="Home" Background="WhiteSmoke"   />
+                                    </RadioButton.Content>
+                                </RadioButton>
+                                <RadioButton x:Name="rbtnAwayFav" GroupName="RadioFav"   Margin="5,2">
+                                    <RadioButton.Content>
+                                        <TextBlock Text="Away" Background="WhiteSmoke"   />
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="tbkMatchWinner" Text="Match Winner:" ToolTip="Take smaller of Home or Away decimal odd." Margin="20,5,0,5" />
+                            <TextBox x:Name="tbxMatchFav" Height="20" Width="40" Margin="5" VerticalAlignment="Top" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Draw:" ToolTip="Draw decimal Odd" Margin="20,5,0,5" />
+                            <TextBox x:Name="tbxDraw" Height="20" Width="40" Margin="5" VerticalAlignment="Top" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"  VerticalAlignment="Top" >
+                            <TextBlock Text="Total Goals Over 2.5:" ToolTip="Decimal odd" Margin="20,5,0,5" TextWrapping="Wrap" MaxWidth="70" VerticalAlignment="Top" />
+                            <TextBox x:Name="tbxTotalGoals3p" Width="40" Margin="5" Height="20" VerticalAlignment="Top" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                            <TextBlock Text="Bet Type:"
+                                Margin="20,5,5,5" VerticalAlignment="Top" TextWrapping="Wrap" MaxWidth="40" />
+                            <ComboBox Name="cbxCalcSeries" Margin="5,5,5,5" Width="100" VerticalAlignment="Top" >
+                                <ComboBoxItem>
+                                    <TextBlock ToolTip="Calc 700 Odds - Charge 1 Call" MaxWidth="80" TextWrapping="Wrap">Basic</TextBlock>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <TextBlock ToolTip="Calc 2500 Odds - Charge 2 Calls" MaxWidth="80" TextWrapping="Wrap">Basic &amp; Combo</TextBlock>
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    <TextBlock ToolTip="Calc 4500 Odds - Charge 3 Calls" MaxWidth="80" TextWrapping="Wrap">Basic &amp; Combo &amp; Or</TextBlock>
+                                </ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Profit Name: " Margin="20,5,5,5" MaxWidth="70" TextWrapping="Wrap"/>
+                                <ComboBox Name="cbxProfitNames" Margin="5,5,5,5" Width="100" VerticalAlignment="Top" DisplayMemberPath="Name"/>
+                            </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            
+                <Button x:Name="btnCalculate" Content="Calculate Odds"  Padding="10,5" Click="btnCalculate_Click" Margin="5,10,5,5"/>
+
+                <GroupBox>
+                    <GroupBox.Header>
+                        <TextBlock Text="Sources (Bookmakers)" FontSize="15" FontWeight="Bold" Margin="10" />
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnGetSources" Content="Get Sources" VerticalAlignment="Top" Padding="10,5" HorizontalAlignment="Left" Margin="5" Click="btnGetSources_Click"  />
+
+                            <DataGrid x:Name="dtgSources" AutoGenerateColumns="False" CanUserAddRows="False"
+                                HorizontalAlignment="Left" MaxHeight="150" Margin="30,5,5,5" SelectionChanged="dtgSources_SelectionChanged" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Sources" Binding="{Binding Path=.}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+ 
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Source (Bookmaker):" Margin="5" />
+                            <TextBox x:Name="tbxSource" Width="120" Margin="5" />
+                        </StackPanel>
+
+                        <Button x:Name="btnCalculateToSource" Content="Calculate Odds with Source Odd Names"  Padding="10,5"  Margin="5" Click="btnCalculateToSource_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                    <GroupBox Margin="0,20,0,0">
+                        <GroupBox.Header>
+                            <TextBlock Text="Publish Calculated Odds to Sharp Odds" FontSize="15" FontWeight="Bold" Margin="10" />
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Bookmaker's Name:" Margin="5" />
+                                <TextBox x:Name="tbxBookmakerName" Text="Calculated" Width="120" Margin="5" />
+                            </StackPanel>
+                            <Button x:Name="btImportCalcOddsToSharpOdds" Content="Load Odds into SharpOdds"
+                        Click="btImportCalcOddsToSharpOdds_Click" Padding="10,5" Margin="5"/>
+
+                            <Button x:Name="btRefreshOddsUI" Content="Refresh Odds UI"
+                         Padding="10,5" Margin="5" Click="btRefreshOddsUI_Click"  />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+
+            <StackPanel Margin="30,10,10,10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Calculated Odds: " FontSize="15" FontWeight="Bold" Margin="10" />
+                    <CheckBox x:Name="chbIsSorted" Content="Sort" IsChecked="True" Margin="5" VerticalAlignment="Center" />
+                    <TextBlock x:Name="tbkOddsCount"  Margin="5" VerticalAlignment="Center" />
+                </StackPanel>
+                <DataGrid x:Name="dtgOdds" AutoGenerateColumns="True" Width="Auto" Height="580" MinWidth="500" 
+                          CanUserAddRows="False" />
+                </StackPanel>
+        </StackPanel>
+        
+    </StackPanel>
+    
+</UserControl>

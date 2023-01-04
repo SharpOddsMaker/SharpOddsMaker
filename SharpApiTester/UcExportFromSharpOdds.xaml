@@ -1,0 +1,239 @@
+﻿<UserControl x:Class="SharpApiTester.UcExportFromSharpOdds"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpApiTester"
+             mc:Ignorable="d" 
+             d:DesignHeight="850" d:DesignWidth="1280">
+    <StackPanel>
+        <TextBlock Text="Export Saved Matches and Odds from Sharp Odds Maker by Session ID" FontSize="18" FontWeight="Bold" Margin="10" />
+
+        <StackPanel Orientation="Horizontal">
+            <ScrollViewer MaxHeight="800">
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Saved Sessions" FontSize="15" FontWeight="Bold" Margin="10" />
+
+                        <Button x:Name="btGetSavedSeesions" Content="Get Saved Sessions"   Margin="5" Padding="10,5" Click="btGetSavedSeesions_Click" />
+
+                        <TextBlock Text="(select a Session)" Margin="5" VerticalAlignment="Center" />
+
+                        <DataGrid x:Name="dtgSeassons" MaxHeight="450"  HorizontalAlignment="Left" Margin="5" 
+                          AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionChanged="dtgSeassons_SelectionChanged" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="SessionID" Binding="{Binding SessionID}" />
+                                <DataGridTextColumn Header="Nick" Binding="{Binding Nick}" />
+                                <DataGridTextColumn Binding="{Binding SessionDate, StringFormat=\{0:dd.MM.yy\}}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBlock Text="Match Sources" FontSize="15" FontWeight="Bold" Margin="10" />
+                            <Button x:Name="btnGetMatchSources" Content="Get Sources" Padding="10,5" HorizontalAlignment="Left" Margin="5" Click="btnGetMatchSources_Click"  />
+                            <TextBlock Text="Select a Source (optional):" Margin="5" />
+
+                            <DataGrid x:Name="dtgMatchesSources" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left" MaxHeight="700" Margin="5" SelectionChanged="dtgMatchesSources_SelectionChanged" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Match Sources" Binding="{Binding Path=.}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBlock Text="Odd Sources" FontSize="15" FontWeight="Bold" Margin="10" />
+                            <Button x:Name="btnGetOddSources" Content="Get Sources" Padding="10,5" HorizontalAlignment="Left" Margin="5" Click="btnGetOddSources_Click"   />
+                            <TextBlock Text="Select a Source (optional):" Margin="5" />
+
+                            <DataGrid x:Name="dtgOddSources" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left" MaxHeight="700" Margin="5" SelectionChanged="dtgOddSources_SelectionChanged"  >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Odd Sources" Binding="{Binding Path=.}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Margin="20,0,0,0">
+                <TextBlock Text="Saved Matches" FontSize="15" FontWeight="Bold" Margin="10" />
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="SessionId"  Margin="5" />
+                    <TextBox x:Name="tbxSessionId" Width="60" Margin="5"  />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Match Source:"  Margin="5" />
+                    <TextBox x:Name="tbxMatchSource" Width="80" Margin="5"  />
+                </StackPanel>
+
+                <Button x:Name="btGetMatches" Content="Get Matches"   Margin="5" Padding="10,5" Click="btGetMatches_Click" />
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Odds Source:"  Margin="5" />
+                    <TextBox x:Name="tbxOddsSource" ToolTip="Optional" Width="80" Margin="5"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Search:" Margin="5" VerticalAlignment="Center" />
+                    <TextBox x:Name="tbxSearchMatch"  Width="90" Margin="5" KeyUp="tbxSearchMatch_KeyUp"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="(select a match)" Margin="5" VerticalAlignment="Center" />
+                    <TextBlock x:Name="tbkMatchesCount" Margin="20,5,5,5"  />
+                </StackPanel>
+
+                <DataGrid x:Name="dtgMatches" MaxHeight="490" HorizontalAlignment="Left" Margin="5" 
+                          AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionChanged="dtgMatches_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="FixtureId" Binding="{Binding FixtureId}" />
+                        
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Home}" FontSize="12"/>
+                                        <TextBlock Text=" - " FontSize="12"/>
+                                        <TextBlock Text="{Binding Away}" FontSize="12"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                <GroupBox>
+                    <GroupBox.Header>
+                        <TextBlock Text="Match Details" FontSize="15" FontWeight="Bold" Margin="10,10,10,5" />
+                    </GroupBox.Header>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="FixtureId: "/>
+                                <TextBlock x:Name="tblFixtureId"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Start Date: "/>
+                                <TextBlock x:Name="tblStartDate"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Country: "/>
+                                <TextBlock x:Name="tblCategory"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="League: "/>
+                                <TextBlock x:Name="tblLeague"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Source: "/>
+                                <TextBlock x:Name="tblCustSource"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Home Name: "/>
+                                <TextBlock x:Name="tblHomeName"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="HomeId: "/>
+                                <TextBlock x:Name="tblHomeId"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="City: "/>
+                                <TextBlock x:Name="tblCity"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Status: "/>
+                                <TextBlock x:Name="tblStatus"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Cust Home: "/>
+                                <TextBlock x:Name="tblCustHome"/>
+                            </StackPanel>
+                           
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Away Name: "/>
+                                <TextBlock x:Name="tblAwayName"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="AwayId: "/>
+                                <TextBlock x:Name="tblAwayId"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="League Season: "/>
+                                <TextBlock x:Name="tblLeagueSeason"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Season Round: "/>
+                                <TextBlock x:Name="tblSeasonRound"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Cust Away: "/>
+                                <TextBlock x:Name="tblCustAway"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Referee: "/>
+                                <TextBlock x:Name="tblReferee"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Venue Name: "/>
+                                <TextBlock x:Name="tblVenueName"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Country Id: "/>
+                                <TextBlock x:Name="tblCategoryId"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="League Id: "/>
+                                <TextBlock x:Name="tblLeagueId"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <StackPanel HorizontalAlignment="Left">
+                    <TextBlock Text="Saved Odds" FontSize="15" FontWeight="Bold" Margin="20,5,5,5" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox x:Name="chbIsSorted" Content="Sort" IsChecked="True" Margin="5" VerticalAlignment="Center" />
+                        <TextBlock x:Name="tbkOddsCount" Margin="5" VerticalAlignment="Center" />
+                        <TextBlock x:Name="tbkUniqueOddsCount" Margin="5" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <DataGrid x:Name="dtgOdds" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                          Height="490" MaxWidth="735" Margin="5" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="FixtureId" Binding="{Binding FixtureId}" />
+                            <DataGridTextColumn Header="BetId" Binding="{Binding BetId}" />
+                            <DataGridTextColumn Header="BetName" Binding="{Binding BetName}" />
+                            <DataGridTextColumn Header="OddId" Binding="{Binding OddId}" />
+                            <DataGridTextColumn Header="OddName" Binding="{Binding OddName}" />
+                            <DataGridTextColumn Header="CustOddName" Binding="{Binding CustOddName}" />
+                            <DataGridTextColumn Header="CustSource" Binding="{Binding CustSource}" />
+                            <DataGridTextColumn Header="BookmakerId" Binding="{Binding BookmakerId}" />
+                            <DataGridTextColumn Header="BookmakerName" Binding="{Binding BookmakerName}" />
+                            <DataGridTemplateColumn Header="OddDec">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding OddDec}" Background="{Binding OddColor}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="SharpApiTester.UcImportFromSharpOdds"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpApiTester"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1280">
+    <StackPanel>
+        <TextBlock Text="Import Matches and Odds To Sharp Odds Maker" FontSize="18" FontWeight="Bold" Margin="10" />
+        <TextBlock Text="You can load Matches and Odds from your system into Sharp Odds Maker application (only localy). We simulate this by loading Matches and Odds from CSV File. You can also edit Matches and Odds here in the grid." Margin="10" TextWrapping="Wrap" />
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <StackPanel MaxWidth="600">
+                <TextBlock Text="Matches" FontSize="15" FontWeight="Bold" Margin="10"  />
+                <Button x:Name="btnGetMatches" Content="Get Matches from CSV File" HorizontalAlignment="Left" Padding="10,5" Margin="5" Click="btnGetMatches_Click" />
+
+                <DataGrid x:Name="dtgMatces" MaxHeight="300" Margin="5" />
+
+                <Button x:Name="btImportMatchesToSharpOdds" Content="Import Matches to Sharp Odds" HorizontalAlignment="Left" Padding="10,5" Margin="0,0,30,0" Click="btImportMatchesToSharpOdds_Click"/>
+                <TextBlock Text="After importing of Matches Go to Sharp Odds Maker, Click Export, Import button on the left side and go to Import Matches Tab. You will find there your imported matches and you can map that matches to Sharp Odds Maker's, so you can import your odds." Margin="5" TextWrapping="Wrap" />
+                <Image Height="230" Stretch="Uniform" Width="auto" Source="Assets/ImportedMatches.jpg" HorizontalAlignment="Left" Margin="10" />
+
+            </StackPanel>
+            <StackPanel >
+                <TextBlock Text="Odds" FontSize="15" FontWeight="Bold" Margin="10"  />
+
+                <StackPanel MaxWidth="665">
+                    <Button x:Name="btnGetOdds" Content="Get Odds from CSV File" HorizontalAlignment="Left" Padding="10,5" Margin="5" Click="btnGetOdds_Click" />
+                    <DataGrid x:Name="dtgOdds" MaxHeight="300" Margin="5" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Bookmaker: " Margin="5" />
+                        <TextBox x:Name="tbxBookmaker" Width="150" Margin="5" />
+                    </StackPanel>
+                    <Button x:Name="btExportOdds" Content="Import Odds" Click="btnImportOddsToSharpOdds_Click" HorizontalAlignment="Left" Margin="0,0,30,0" Padding="10,5"/>
+                    <Expander IsExpanded="True" Margin="5">
+                        <Expander.Header>
+                            <TextBox Text="How you can import, map and display your odds in Sharp Odd Maker." FontWeight="Bold" />
+                        </Expander.Header>
+                        <StackPanel>
+                        <TextBlock Margin="5" TextWrapping="Wrap"  >
+                        After importing of Odds Go to Sharp Odds Maker, Click Export, Import button on the left side and go to Import Odds Tab.
+                        <LineBreak/>
+                        <LineBreak/>
+                        You will find there your imported odds and you can map that Odds to Sharp Odds Maker's if they are not been mapped.
+                        <LineBreak/>
+                        If you made new mappings then Click button Save Mappings.
+                        <LineBreak/>
+                        <LineBreak/>
+                        You need to select a match via Sharp Odds Maker's Footall Odds / Match tree,
+                        <LineBreak/>
+                        or via this application: View Matches Tab / Get Sharp Odds Matches Button / Load Match Details into SharpOdds.
+                        <LineBreak/>
+                        <LineBreak/>
+                        Button Load Odds will load odds into Sharp Odds Maker's Cache.
+                        <LineBreak/>
+                        You can load Match Odds For that Bookmaker multiple times or for multiple Bookmakers.
+                        <LineBreak/>
+                        <LineBreak/>
+                        When you are finished with loading Match Odds click Refresh Layout to show imported odds in Sharp Odds Maker Compared Odds view.
+                        </TextBlock>
+
+                        <Image Height="362" Stretch="Uniform" Width="auto" Source="Assets/ImportOdds.jpg" HorizontalAlignment="Left" Margin="10" />
+                        </StackPanel>
+                    </Expander>
+                    
+
+                    
+
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

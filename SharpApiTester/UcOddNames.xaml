@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="SharpApiTester.UcOddNames"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpApiTester"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="800">
+    <StackPanel>
+        <TextBlock Text="Odd Names" FontSize="18" FontWeight="Bold" Margin="10" />
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Sources (Bookmakers)" FontSize="15" FontWeight="Bold" Margin="10" />
+                <Button x:Name="btnGetSources" Content="Get Sources" Padding="10,5" HorizontalAlignment="Left" Margin="5" Click="btnGetSources_Click"  />
+                <TextBlock Text="Select a Source (optional):" Margin="5" />
+
+                <DataGrid x:Name="dtgSources" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left" MaxHeight="700" Margin="5" SelectionChanged="dtgSources_SelectionChanged" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Sources" Binding="{Binding Path=.}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Margin="30,0,0,0">
+                <TextBlock Text="Odd Names" FontSize="15" FontWeight="Bold" Margin="10" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Source - Bookmaker (optional):" Margin="30,5,5,5" />
+                    <TextBox x:Name="tbxSource" Width="120" Margin="5" />
+
+                    <Button x:Name="btGetOddNames" Content="Get Odd Names" Margin="20,5,5,5" Padding="10,5" Click="btGetOddNames_Click" />
+                </StackPanel>
+                <GroupBox>
+                    <GroupBox.Header>
+                        <TextBlock Text="Search:" Margin="5" />
+                    </GroupBox.Header>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Bet Type" Margin="5" />
+                        <ComboBox Name="cbxBetType" Margin="5" Width="90" VerticalAlignment="Top" SelectionChanged="cbxBetType_SelectionChanged" >
+                            <ComboBoxItem>All</ComboBoxItem>
+                            <ComboBoxItem >Basic</ComboBoxItem>
+                            <ComboBoxItem>Combo</ComboBoxItem>
+                            <ComboBoxItem>Combo Or</ComboBoxItem>
+                            <ComboBoxItem>Scorers</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Search" ToolTip="Search Bets"  Margin="5" />
+                        <TextBox Name="tbxSearchBets" Width="80" Margin="5" KeyUp="tbxSearchBets_KeyUp" />
+                        <TextBlock x:Name="tbkOddNameCount" Text="Count" Margin="20,5,5,5" />
+                        <Button x:Name="btnSort" Content="Sort" Padding="10,5" HorizontalAlignment="Left" Margin="5" Click="btnSort_Click" />
+                    </StackPanel>
+                </GroupBox>
+
+                <DataGrid x:Name="dtgOddNames" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                          HorizontalAlignment="Left" MaxWidth="1000" MaxHeight="550" Margin="5" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="BetId" Binding="{Binding BetId}" />
+                        <DataGridTextColumn Header="BetName" Binding="{Binding BetName}" />
+                        <DataGridTextColumn Header="OddId" Binding="{Binding OddId}" />
+                        <DataGridTextColumn Header="OddName" Binding="{Binding OddName}" />
+                        <DataGridTextColumn Header="CustOddName" Binding="{Binding CustOddName}" />
+                        <DataGridTextColumn Header="CustSource" Binding="{Binding CustSource}" />
+                        <DataGridTextColumn Header="BetNameType" Binding="{Binding BetNameType}" />
+                        <DataGridTextColumn Header="BetImportance" Binding="{Binding BetImportance}" />
+                        <DataGridTextColumn Header="OddImportance" Binding="{Binding OddImportance}" />
+                        <DataGridTextColumn Header="IsFixedBet" Binding="{Binding IsFixedBet}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

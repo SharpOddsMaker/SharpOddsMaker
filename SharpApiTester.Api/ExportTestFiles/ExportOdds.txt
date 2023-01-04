@@ -1,0 +1,1 @@
+{"custImpOddsModel":[{"customersOddName":"Match Winner 1","customerOdd":1.45},{"customersOddName":"Asian Handicap Home +0.75","customerOdd":1.35},{"customersOddName":"Total Goals Over 2.5","customerOdd":1.9}],"bookMaker":"Mozzart"}

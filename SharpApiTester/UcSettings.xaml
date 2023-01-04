@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="SharpApiTester.UcSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpApiTester"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="800">
+    <StackPanel>
+        <TextBlock Text="Settings" FontSize="18" FontWeight="Bold" Margin="10" />
+        <StackPanel Orientation="Horizontal" >
+            <TextBlock Text="Listening port number (should be indentical like in Settings on Sharp Odds Maker. )" Margin="5" />
+            <TextBox x:Name="tbxPortNumber" Text="9000" Width="50" Margin="5" KeyUp="tbxPortNumber_KeyUp" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Get only parameter odds: " Margin="5"/>
+            <CheckBox x:Name="chbParamOdds" VerticalAlignment="Center" Click="chbParamOdds_Click"/>
+        </StackPanel>
+
+        <TextBlock Text="How To start Local service on Sharp Odds Maker" FontSize="15" FontWeight="Bold" Margin="10" />
+        <TextBlock Text="To start managing Sharp Odds Maker externally you need to enable local service on Sharp Odds Maker First." TextWrapping="Wrap" Margin="5" />
+        <TextBlock Text="You can enable local service:" Margin="5" />
+        <TextBlock Text="1. Manually, by clicking the Start Service Button" Margin="5" />
+        <StackPanel Orientation="Horizontal">
+            <Image Height="130" Stretch="Uniform" Width="auto" Source="Assets/EnableLocalService.jpg" Margin="10"/>
+            <Image Height="200" Stretch="Uniform" Width="auto" Source="Assets/StartedService.jpg" Margin="10"/>
+        </StackPanel>
+        
+        <TextBlock Text="2. Automatically when Sharp Odds Maker Starts, one settings panel" Margin="5" />
+        <Image Height="230" Stretch="Uniform" Width="auto" Source="Assets/SharpOddsMakerSettings.jpg" HorizontalAlignment="Left" Margin="10" />
+
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="SharpApiTester.UcMatches"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SharpApiTester"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="800">
+    <StackPanel >
+        <TextBlock Text="Sharp Odds Matches" FontSize="18" FontWeight="Bold" Margin="10" />
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Sources (Bookmakers)" FontSize="15" FontWeight="Bold" Margin="10" />
+                <Button x:Name="btnGetSources" Content="Get Sources" Padding="10,5" HorizontalAlignment="Left" Margin="5" Click="btnGetSources_Click"  />
+                <TextBlock Text="Select a Source (optional):" Margin="5" />
+
+                <DataGrid x:Name="dtgSources" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left" MaxHeight="700" Margin="5" SelectionChanged="dtgSources_SelectionChanged" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Sources" Binding="{Binding Path=.}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Margin="30,0,0,0">
+                <TextBlock Text="Matches" FontSize="15" FontWeight="Bold" Margin="10"  />
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Source - Bookmaker (optional):" Margin="5" />
+                    <TextBox x:Name="tbxSource" Width="120" Margin="5" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Button x:Name="btnGetSharpMatches" Content="Get Sharp matches" Margin="5" Padding="10,5" HorizontalAlignment="Left" Click="btnGetSharpMatches_Click"/>
+                    <TextBlock x:Name="tbkSearch" Text="Search:"  Margin="15,5,5,5" VerticalAlignment="Center" />
+                    <TextBox x:Name="tbxSearch" Width="110"  Margin="5" Padding="3" VerticalAlignment="Center" KeyUp="tbxSearch_KeyUp" />
+                    <TextBlock x:Name="tbkMatchCount"  Margin="5" VerticalAlignment="Center" />
+                </StackPanel>
+                
+                
+                <TextBlock Text="Select a Match to show Match Details and Odds" Margin="5" />
+                <DataGrid x:Name="dtgMatches" MaxHeight="550" MaxWidth="600" HorizontalAlignment="Left" Margin="5" 
+                          AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
+                            SelectionChanged="dtgMatches_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="FixtureId" Binding="{Binding FixtureId}" />
+                        
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Home}" FontSize="12"/>
+                                        <TextBlock Text=" - " FontSize="12"/>
+                                        <TextBlock Text="{Binding Away}" FontSize="12"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="CustHome" Binding="{Binding CustHome}" />
+                        <DataGridTextColumn Header="CustAway" Binding="{Binding CustAway}" />
+                        <DataGridTextColumn Header="CustSource" Binding="{Binding CustSource}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="40,0,0,0">
+                <TextBlock Text="Match Details" FontSize="15" FontWeight="Bold" Margin="10"  />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="FixtureId: "/>
+                    <TextBlock x:Name="tblFixtureId"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Start Date: "/>
+                    <TextBlock x:Name="tblStartDate"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="League Id: "/>
+                    <TextBlock x:Name="tbkLeagueId"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="League Name: "/>
+                    <TextBlock x:Name="tbkLeagueName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Category Id: "/>
+                    <TextBlock x:Name="tbkCategoryId"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="LeagueCountry: "/>
+                    <TextBlock x:Name="tbkLeagueCountry"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="League Season: "/>
+                    <TextBlock x:Name="tblLeagueSeason"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Season Round: "/>
+                    <TextBlock x:Name="tblSeasonRound"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="HomeId: "/>
+                    <TextBlock x:Name="tblHomeId"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Home Name: "/>
+                    <TextBlock x:Name="tblHomeName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="AwayId: "/>
+                    <TextBlock x:Name="tblAwayId"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Away Name: "/>
+                    <TextBlock x:Name="tblAwayName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Venue Name: "/>
+                    <TextBlock x:Name="tblVenueName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="City: "/>
+                    <TextBlock x:Name="tblCity"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Status: "/>
+                    <TextBlock x:Name="tblStatus"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Referee: "/>
+                    <TextBlock x:Name="tblReferee"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Customer Away Name: "/>
+                    <TextBlock x:Name="tblCustAwayName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Customer Home Name: "/>
+                    <TextBlock x:Name="tblCustHomeName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Customer Source Name: "/>
+                    <TextBlock x:Name="tblCustSourceName"/>
+                </StackPanel>
+                
+                <Button x:Name="btLoadMatchDetails" Content="Load Match Details into SharpOdds" Click="btLoadMatchDetails_Click"  Margin="0,10,0,0" Padding="10,5" />
+                <Button x:Name="btLoadOdds" Content="Load Match Odds into SharpOdds" Margin="0,10,0,0" Padding="10,5" Click="btLoadOdds_Click" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
